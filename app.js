@@ -3,6 +3,7 @@
 const express = require("express");
 const app = express();
 const ExpressError = require("./expressError")
+const slugify = require("slugify")
 
 app.use(express.json());
 
@@ -11,6 +12,9 @@ app.use("/companies", cRoutes);
 
 const iRoutes = require("./routes/invoices");
 app.use("/invoices", iRoutes);
+
+const indRoutes = require("./routes/industries");
+app.use("/industries", indRoutes);
 
 /** 404 handler */
 
@@ -25,7 +29,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
 
   return res.json({
-    error: err,
+    // error: err,
     message: err.message
   });
 });
